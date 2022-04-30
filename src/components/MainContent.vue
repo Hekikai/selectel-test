@@ -14,6 +14,7 @@ import MainContentPosts from '@/components/MainContentPosts';
 .container {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  gap: 24px;
+  margin: 0 257px;
 }
 </style>

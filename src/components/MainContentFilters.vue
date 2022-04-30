@@ -36,12 +36,10 @@ const value2 = ref(2);
 
 <style scoped lang="scss">
 .section {
-
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 48px;
   height: 4.5rem;
-  margin-left: 257px;
   margin-top: 60px;
   padding: 1em 0 1em 0;
 

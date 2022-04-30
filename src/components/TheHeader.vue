@@ -32,6 +32,7 @@ import TopSelectel from '@/assets/top-selectel.svg';
   z-index: 1;
   top: 0;
   background-color: $white-color;
+  border: 1px solid #E8E8E8;
 
   &__logo {
     margin-left: 138px;
