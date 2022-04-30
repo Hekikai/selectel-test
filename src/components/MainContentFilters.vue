@@ -42,6 +42,9 @@ const value2 = ref(2);
   height: 4.5rem;
   margin-top: 60px;
   padding: 1em 0 1em 0;
+  position: sticky;
+  top: 76px;
+  z-index: 1;
 
   &__multiselect {
     width: 295px;
