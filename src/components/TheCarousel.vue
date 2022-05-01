@@ -20,7 +20,6 @@
 @import "src/style/variables";
 
 .info {
-
   position: relative;
   top: 290px;
   left: 255px;
