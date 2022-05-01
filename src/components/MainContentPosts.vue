@@ -1,16 +1,13 @@
 <template>
   <section class="section">
-    <a-row :gutter="[16,16]">
-      <template v-for="[user, posts] in users.entries()">
-        <a-col
-            class="section__col"
-            v-for="post in posts"
-            :span="8">
-          <a-card
-              class="section__card"
-              :title="post.title"
-              bordered>
-            <p>{{ post.body }}</p>
+    <template v-for="[user, posts] in users.entries()">
+      <div v-for="post in posts" class="section__col">
+        <a-card
+            class="section__card"
+            :title="post.title"
+            bordered>
+          <p>{{ post.body }}</p>
+          <div class="badges">
             <a-badge
                 :number-style="{
                         backgroundColor: '#092433',
@@ -22,15 +19,14 @@
                 :number-style="{
                         backgroundColor: '#E8E8E8',
                         color: '#595959',
-                        marginLeft: '10px',
                         fontSize: '12px'
                       }"
                 :count="post.date"
             />
-          </a-card>
-        </a-col>
-      </template>
-    </a-row>
+          </div>
+        </a-card>
+      </div>
+    </template>
   </section>
 </template>
 
@@ -48,11 +44,34 @@ onMounted(() => Promise.all([loadUsers()]));
 
 <style scoped lang="scss">
 .section {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-gap: 1em;
+
+  @media (max-width: 976px) {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__card {
-    height: auto;
-    width: auto;
-    padding: 0;
+    height: 100%;
+
+    .badges {
+      display: flex;
+
+      :nth-child(n+2) {
+        margin-left: 10px;
+      }
+
+      @media (max-width: 1300px) {
+        flex-direction: column;
+        gap: 1em;
+
+        :nth-child(n+2) {
+          margin-left: 0;
+        }
+      }
+    }
 
     p {
       font-size: 14px;

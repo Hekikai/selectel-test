@@ -38,13 +38,17 @@ const value2 = ref(2);
 .section {
   display: flex;
   flex-direction: row;
-  gap: 48px;
+  gap: 1.5em;
   height: 4.5rem;
   margin-top: 60px;
   padding: 1em 0 1em 0;
   position: sticky;
   top: 76px;
   z-index: 1;
+
+  @media (max-width: 976px) {
+    flex-direction: column;
+  }
 
   &__multiselect {
     width: 295px;
