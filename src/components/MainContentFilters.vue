@@ -36,14 +36,19 @@ const value2 = ref(2);
 
 <style scoped lang="scss">
 .section {
-
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 1.5em;
   height: 4.5rem;
-  margin-left: 257px;
   margin-top: 60px;
   padding: 1em 0 1em 0;
+  position: sticky;
+  top: 76px;
+  z-index: 1;
+
+  @media (max-width: 976px) {
+    flex-direction: column;
+  }
 
   &__multiselect {
     width: 295px;
