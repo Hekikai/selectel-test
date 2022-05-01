@@ -39,22 +39,22 @@
           <ul class="icons">
             <li>
               <a href="">
-                <img :src="Telegramm" alt="Telegramm ref">
+                <v-telegram v-change-SVG-color/>
               </a>
             </li>
             <li>
               <a href="">
-                <img :src="VK" alt="Vkontakte ref">
+                <v-vk v-change-SVG-color/>
               </a>
             </li>
             <li>
               <a href="">
-                <img :src="Twitter" alt="Twitter ref">
+                <v-twitter v-change-SVG-color/>
               </a>
             </li>
             <li>
               <a href="">
-                <img :src="Habr" alt="Habr ref" class="svg">
+                <v-habr v-change-SVG-color/>
               </a>
             </li>
           </ul>
@@ -66,10 +66,10 @@
 
 <script setup>
 import SelectelLogoFooter from '@/assets/selectel-logo-footer.svg';
-import Habr from '@/assets/links/H.svg';
-import Telegramm from '@/assets/links/TG.svg';
-import Twitter from '@/assets/links/Twitter.svg';
-import VK from '@/assets/links/VK.svg';
+import VTelegram from '@/components/links/VTelegram.vue';
+import VVk from '@/components/links/VVk.vue';
+import VTwitter from '@/components/links/VTwitter.vue';
+import VHabr from '@/components/links/VHabr.vue';
 
 </script>
 
@@ -123,10 +123,8 @@ import VK from '@/assets/links/VK.svg';
         margin-right: 20px;
       }
 
-      .svg:hover {
-        &path {
-          color: #EB4247;
-        }
+      .svg {
+        color: #EB4247;
       }
     }
 
