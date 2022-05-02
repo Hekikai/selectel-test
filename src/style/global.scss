@@ -29,9 +29,10 @@ a {
   text-decoration: none;
   color: inherit;
   display: inline-block;
+
   &:hover {
     text-decoration: none;
-    color: inherit;
+    color: #EB4247;
   }
 }
 
@@ -44,4 +45,18 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+#svg {
+  path {
+    fill: #FFF;
+  }
+  &:hover path {
+    fill: #EB4247;
+
+  }
+}
+
+path {
+  transition: fill .4s ease;
 }

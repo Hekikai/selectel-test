@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header ref="header" class="header">
     <div class="header__logo">
       <a href="/">
         <img :src="TopSelectel" alt="Selectel logo">
@@ -17,7 +17,10 @@
 </template>
 
 <script setup>
+import {onMounted, onUpdated, ref, watch, watchEffect} from "vue";
 import TopSelectel from '@/assets/top-selectel.svg';
+import VEmail from '@/components/links/VEmail.vue';
+import VPhone from '@/components/links/VPhone.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -34,8 +37,16 @@ import TopSelectel from '@/assets/top-selectel.svg';
   background-color: $white-color;
   border: 1px solid #E8E8E8;
 
+  @media (max-width: 768px) {
+
+  }
+
   &__logo {
     margin-left: 138px;
+
+    @media (max-width: 768px) {
+      margin-left: 1em;
+    }
   }
 
   &__info {
@@ -43,6 +54,10 @@ import TopSelectel from '@/assets/top-selectel.svg';
     gap: 48px;
     margin-right: 138px;
     padding: 33px 0 33px 0;
+
+    @media (max-width: 768px) {
+      margin-right: 1em;
+    }
   }
 }
 
