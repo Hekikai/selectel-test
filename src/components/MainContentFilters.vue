@@ -43,15 +43,16 @@ const value2 = ref(2);
   margin-top: 60px;
   padding: 1em 0 1em 0;
   position: sticky;
-  top: 76px;
+  top: 96px;
   z-index: 1;
 
   @media (max-width: 976px) {
     flex-direction: column;
+    align-items: center;
   }
 
   &__multiselect {
-    width: 295px;
+    width: 331px;
   }
 
   &__date-filter {

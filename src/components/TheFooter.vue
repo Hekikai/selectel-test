@@ -33,28 +33,28 @@
       <div class="footer__row">
         <div class="footer__col">
           <span class="footer__copy">© ООО «Селектел», 2008—2022</span>
-          <p class="footer__copy">Лицензия на телематические услуги № 176267</p>
+          <p class="footer__copy">Лицензия на телематические <br/> услуги № 176267</p>
         </div>
         <div class="footer__col">
           <ul class="icons">
             <li>
               <a href="">
-                <v-telegram v-change-SVG-color/>
+                <v-telegram/>
               </a>
             </li>
             <li>
               <a href="">
-                <v-vk v-change-SVG-color/>
+                <v-vk/>
               </a>
             </li>
             <li>
               <a href="">
-                <v-twitter v-change-SVG-color/>
+                <v-twitter/>
               </a>
             </li>
             <li>
               <a href="">
-                <v-habr v-change-SVG-color/>
+                <v-habr/>
               </a>
             </li>
           </ul>
