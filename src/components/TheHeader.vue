@@ -25,6 +25,9 @@ import VPhone from '@/components/links/VPhone.vue';
 
 <style lang="scss" scoped>
 @import "./src/style/variables";
+@import "./src/style/mixins";
+
+@include color-a($header-link-color);
 
 .header {
   display: flex;

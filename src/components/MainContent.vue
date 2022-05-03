@@ -18,7 +18,7 @@ import MainContentPosts from '@/components/MainContentPosts';
   margin: 0 257px;
 
   @media (max-width: 976px) {
-    margin: 0 16px;
+    margin: 0;
   }
 }
 </style>

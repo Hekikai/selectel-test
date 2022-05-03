@@ -1,64 +1,62 @@
 <template>
   <footer class="footer">
-    <div class="container">
-      <div class="footer__row">
-        <div class="footer__col">
-          <img :src="SelectelLogoFooter" alt="Selectel" class="footer__logo">
-        </div>
-        <div class="footer__col">
-          <ul class="links">
-            <li class="links__item"><a href="">Серверы</a></li>
-            <li class="links__item"><a href="">Облако</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <ul class="links">
-            <li class="links__item"><a href="">Оборудования</a></li>
-            <li class="links__item"><a href="">Решения</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <ul class="links">
-            <li class="links__item"><a href="">Дата-центры</a></li>
-            <li class="links__item"><a href="">О компании</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <ul class="links">
-            <li class="links__item"><a href="">Блог</a></li>
-            <li class="links__item"><a href="">Офисы</a></li>
-          </ul>
-        </div>
+    <div class="row-1">
+      <div class="footer__logo">
+        <img :src="SelectelLogoFooter" alt="Selectel" class="footer__logo">
       </div>
-      <div class="footer__row">
-        <div class="footer__col">
-          <span class="footer__copy">© ООО «Селектел», 2008—2022</span>
-          <p class="footer__copy">Лицензия на телематические <br/> услуги № 176267</p>
-        </div>
-        <div class="footer__col">
-          <ul class="icons">
-            <li>
-              <a href="">
-                <v-telegram/>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <v-vk/>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <v-twitter/>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <v-habr/>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div class="footer__col-1">
+        <ul class="links">
+          <li class="links__item"><a href="">Серверы</a></li>
+          <li class="links__item"><a href="">Облако</a></li>
+        </ul>
+      </div>
+      <div class="footer__col-2">
+        <ul class="links">
+          <li class="links__item"><a href="">Оборудования</a></li>
+          <li class="links__item"><a href="">Решения</a></li>
+        </ul>
+      </div>
+      <div class="footer__col-3">
+        <ul class="links">
+          <li class="links__item"><a href="">Дата-центры</a></li>
+          <li class="links__item"><a href="">О компании</a></li>
+        </ul>
+      </div>
+      <div class="footer__col-4">
+        <ul class="links">
+          <li class="links__item"><a href="">Блог</a></li>
+          <li class="links__item"><a href="">Офисы</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="footer__copy">
+        <span class="footer__copytext">© ООО «Селектел», 2008—2022</span>
+        <p class="footer__copytext">Лицензия на телематические <br/> услуги № 176267</p>
+      </div>
+      <div class="footer__links">
+        <ul class="icons">
+          <li>
+            <a href="">
+              <v-telegram/>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <v-vk/>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <v-twitter/>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <v-habr/>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </footer>
@@ -74,65 +72,64 @@ import VHabr from '@/components/links/VHabr.vue';
 </script>
 
 <style scoped lang="scss">
+@import "./src/style/variables";
+@import "./src/style/mixins";
+
+@include color-a($white-color);
 
 .footer {
+  display: grid;
+  grid-template-areas:
+    "row1"
+    "row2";
+  grid-template-rows: repeat(2, minmax(min-content, 140px));
+  background-color: #092433;
+  margin-top: 120px;
 
-  .container {
-    height: auto;
-    background-color: #092433;
-    margin-top: 120px;
-  }
-
-  &__row {
+  .row-1 {
+    grid-area: row1;
     display: grid;
-    grid-template-columns: minmax(270px, 500px) repeat(4, minmax(max-content, 200px));
-    padding: 80px 0 0 20px;
+    align-items: end;
+    grid-template-areas:
+    "logo ul1 ul2 ul3 ul4";
+    grid-template-columns: minmax(270px, 592px) repeat(4, minmax(max-content, 200px));
+    margin: 80px 0 32px 20px;
 
-    @media (max-width: 976px) {
-
-    }
-
-    &:last-child {
-      padding-bottom: 80px;
+    .links li:last-child {
+      margin-top: 17px;
     }
   }
 
-  &__copy {
-    font: 14px/20px;
-    color: #FFF;
-    opacity: 0.5;
-  }
-
-  &__col {
-
-
-    .links__item {
-      color: white;
-      font: 16px/24px;
-
-      &:last-child {
-        margin-top: 18px;
-      }
-    }
-
+  .row-2 {
+    grid-area: row2;
+    display: grid;
+    grid-template-areas:
+    "copy links . . .";
+    grid-template-columns: minmax(270px, 592px) 2fr;
+    margin: 0 0 auto 20px;
 
     .icons {
-      display: flex;
+      li {
+        display: inline-block;
 
-      :not(:last-child) {
-        margin-right: 20px;
-      }
-
-      .svg {
-        color: #EB4247;
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
       }
     }
-
   }
 
-  &__logo {
-    margin-bottom: 32px;
+  &__copytext {
+    color: #FFF;
+    opacity: 0.2;
   }
+
+  &__links {
+    display: flex;
+    align-items: flex-end;
+  }
+
+
 }
 
 </style>

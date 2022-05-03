@@ -1,0 +1,11 @@
+@mixin color-a($white-color) {
+  a {
+    text-decoration: none;
+    color: $white-color;
+
+    &:hover {
+      text-decoration: none;
+      color: #EB4247;
+    }
+  }
+}
