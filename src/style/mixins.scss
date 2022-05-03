@@ -9,3 +9,9 @@
     }
   }
 }
+
+@mixin footer-col {
+  margin-top: 80px;
+  display: flex;
+  align-items: flex-end;
+}

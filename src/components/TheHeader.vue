@@ -1,26 +1,43 @@
 <template>
   <header ref="header" class="header">
     <div class="header__logo">
-      <a href="/">
+      <a  href="/">
         <img :src="TopSelectel" alt="Selectel logo">
       </a>
     </div>
     <div class="header__info">
       <div class="header__phone">
-        <a href="tel:88005550675">8 800 555 06 75</a>
+        <a v-if="reactiveWidth > 764" href="tel:88005550675">8 800 555 06 75</a>
+        <template v-else>
+          <v-phone/>
+        </template>
       </div>
       <div class="header__email">
-        <a href="mailto:sales@selectel.ru">sales@selectel.ru</a>
+        <a v-if="reactiveWidth > 764" href="mailto:sales@selectel.ru">sales@selectel.ru</a>
+        <template v-else>
+          <v-email/>
+        </template>
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import {onMounted, onUpdated, ref, watch, watchEffect} from "vue";
+import {computed, onMounted, onUpdated, ref, watch, watchEffect} from "vue";
 import TopSelectel from '@/assets/top-selectel.svg';
 import VEmail from '@/components/links/VEmail.vue';
 import VPhone from '@/components/links/VPhone.vue';
+
+const header = ref(2);
+const reactiveWidth = ref(null);
+
+const outputSize = (e) => {
+  reactiveWidth.value = e[0].contentRect.width;
+}
+
+onMounted(() => {
+  const observer = new ResizeObserver(outputSize).observe(header.value);
+})
 </script>
 
 <style lang="scss" scoped>
@@ -35,7 +52,7 @@ import VPhone from '@/components/links/VPhone.vue';
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   background-color: $white-color;
   border: 1px solid #E8E8E8;

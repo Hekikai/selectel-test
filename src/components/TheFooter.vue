@@ -1,63 +1,59 @@
 <template>
   <footer class="footer">
-    <div class="row-1">
-      <div class="footer__logo">
-        <img :src="SelectelLogoFooter" alt="Selectel" class="footer__logo">
-      </div>
-      <div class="footer__col-1">
-        <ul class="links">
-          <li class="links__item"><a href="">Серверы</a></li>
-          <li class="links__item"><a href="">Облако</a></li>
-        </ul>
-      </div>
-      <div class="footer__col-2">
-        <ul class="links">
-          <li class="links__item"><a href="">Оборудования</a></li>
-          <li class="links__item"><a href="">Решения</a></li>
-        </ul>
-      </div>
-      <div class="footer__col-3">
-        <ul class="links">
-          <li class="links__item"><a href="">Дата-центры</a></li>
-          <li class="links__item"><a href="">О компании</a></li>
-        </ul>
-      </div>
-      <div class="footer__col-4">
-        <ul class="links">
-          <li class="links__item"><a href="">Блог</a></li>
-          <li class="links__item"><a href="">Офисы</a></li>
-        </ul>
-      </div>
+    <div class="footer__logo">
+      <img :src="SelectelLogoFooter" alt="Selectel" class="footer__logoimg">
     </div>
-    <div class="row-2">
-      <div class="footer__copy">
-        <span class="footer__copytext">© ООО «Селектел», 2008—2022</span>
-        <p class="footer__copytext">Лицензия на телематические <br/> услуги № 176267</p>
-      </div>
-      <div class="footer__links">
-        <ul class="icons">
-          <li>
-            <a href="">
-              <v-telegram/>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <v-vk/>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <v-twitter/>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <v-habr/>
-            </a>
-          </li>
-        </ul>
-      </div>
+    <div class="footer__col-1">
+      <ul class="links">
+        <li class="links__item"><a href="">Серверы</a></li>
+        <li class="links__item"><a href="">Облако</a></li>
+      </ul>
+    </div>
+    <div class="footer__col-2">
+      <ul class="links">
+        <li class="links__item"><a href="">Оборудования</a></li>
+        <li class="links__item"><a href="">Решения</a></li>
+      </ul>
+    </div>
+    <div class="footer__col-3">
+      <ul class="links">
+        <li class="links__item"><a href="">Дата-центры</a></li>
+        <li class="links__item"><a href="">О компании</a></li>
+      </ul>
+    </div>
+    <div class="footer__col-4">
+      <ul class="links">
+        <li class="links__item"><a href="">Блог</a></li>
+        <li class="links__item"><a href="">Офисы</a></li>
+      </ul>
+    </div>
+    <div class="footer__copy">
+      <span class="footer__copytext">© ООО «Селектел», 2008—2022</span>
+      <p class="footer__copytext">Лицензия на телематические <br/> услуги № 176267</p>
+    </div>
+    <div class="footer__links">
+      <ul class="icons">
+        <li>
+          <a href="">
+            <v-telegram/>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <v-vk/>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <v-twitter/>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <v-habr/>
+          </a>
+        </li>
+      </ul>
     </div>
   </footer>
 </template>
@@ -80,41 +76,70 @@ import VHabr from '@/components/links/VHabr.vue';
 .footer {
   display: grid;
   grid-template-areas:
-    "row1"
-    "row2";
+    "logo ul1 ul2 ul3 ul4"
+    "copy links . . .";
   grid-template-rows: repeat(2, minmax(min-content, 140px));
+  grid-template-columns: minmax(300px, 592px) repeat(4, minmax(max-content, 200px));
+  grid-gap: 1em;
   background-color: #092433;
-  margin-top: 120px;
 
-  .row-1 {
-    grid-area: row1;
-    display: grid;
-    align-items: end;
+  @media (max-width: 1024px) {
     grid-template-areas:
-    "logo ul1 ul2 ul3 ul4";
-    grid-template-columns: minmax(270px, 592px) repeat(4, minmax(max-content, 200px));
-    margin: 80px 0 32px 20px;
-
-    .links li:last-child {
-      margin-top: 17px;
-    }
+      "logo logo"
+      "links links"
+      "ul1 ul2"
+      "ul2 ul3"
+      "copy copy";
+    grid-template-columns: minmax(300px, 592px) 1fr;
+    grid-template-rows: repeat(5, minmax(min-content, 140px));
   }
 
-  .row-2 {
-    grid-area: row2;
-    display: grid;
-    grid-template-areas:
-    "copy links . . .";
-    grid-template-columns: minmax(270px, 592px) 2fr;
-    margin: 0 0 auto 20px;
+  .links {
+    display: flex;
+    flex-direction: column;
+    row-gap: 17px;
+  }
+
+  &__logo {
+    grid-area: logo;
+    margin: 80px 0 0 20px;
+  }
+
+  &__col-1 {
+    grid-area: ul1;
+    @include footer-col;
+  }
+
+  &__col-2 {
+    grid-area: ul2;
+    @include footer-col;
+  }
+
+  &__col-3 {
+    grid-area: ul3;
+    @include footer-col;
+  }
+
+  &__col-4 {
+    grid-area: ul4;
+    @include footer-col;
+  }
+
+  &__copy {
+    grid-area: copy;
+    margin: 32px 0 78px 20px;
+  }
+
+  &__links {
+    grid-area: links;
+    display: flex;
+    align-items: center;
 
     .icons {
-      li {
-        display: inline-block;
+      display: flex;
 
-        &:not(:first-child) {
-          margin-left: 20px;
-        }
+      li:not(:first-child) {
+        margin-left: 18px;
       }
     }
   }
@@ -123,12 +148,6 @@ import VHabr from '@/components/links/VHabr.vue';
     color: #FFF;
     opacity: 0.2;
   }
-
-  &__links {
-    display: flex;
-    align-items: flex-end;
-  }
-
 
 }
 

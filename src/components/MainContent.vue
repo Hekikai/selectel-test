@@ -15,10 +15,10 @@ import MainContentPosts from '@/components/MainContentPosts';
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 0 257px;
+  margin: 0 257px 60px 257px;
 
   @media (max-width: 976px) {
-    margin: 0;
+    margin: 0 16px;
   }
 }
 </style>
