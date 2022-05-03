@@ -35,6 +35,8 @@ const value2 = ref(2);
 </script>
 
 <style scoped lang="scss">
+@import './src/style/mixins';
+
 .section {
   display: flex;
   flex-direction: row;
@@ -52,11 +54,11 @@ const value2 = ref(2);
   }
 
   &__multiselect {
-    width: 331px;
+   @include filter;
   }
 
   &__date-filter {
-    width: 331px;
+    @include filter;
   }
 }
 </style>
