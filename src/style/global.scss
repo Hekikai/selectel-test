@@ -30,16 +30,6 @@ p {
   padding: 0;
 }
 
-#svg {
-  path {
-    fill: #FFF;
-  }
-  &:hover path {
-    fill: #EB4247;
-
-  }
-}
-
 path {
   transition: fill .4s ease;
 }

@@ -6,3 +6,10 @@
   </svg>
 
 </template>
+
+<style scoped lang="scss">
+@import './src/style/mixins';
+@import './src/style/variables';
+
+@include color-svg($black-color);
+</style>

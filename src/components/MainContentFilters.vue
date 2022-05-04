@@ -36,21 +36,23 @@ const value2 = ref(2);
 
 <style scoped lang="scss">
 @import './src/style/mixins';
+@import './src/style/variables';
 
 .section {
   display: flex;
   flex-direction: row;
   gap: 1.5em;
   height: 4.5rem;
+  padding: 1em 0;
   margin-top: 60px;
-  padding: 1em 0 1em 0;
   position: sticky;
-  top: 96px;
+  top: $header-height + 10px;
   z-index: 1;
 
   @media (max-width: 976px) {
     flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    top: $header-height + 20px;
   }
 
   &__multiselect {

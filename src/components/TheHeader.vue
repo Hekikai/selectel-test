@@ -1,22 +1,30 @@
 <template>
   <header ref="header" class="header">
     <div class="header__logo">
-      <a  href="/">
+      <a href="/">
         <img :src="TopSelectel" alt="Selectel logo">
       </a>
     </div>
     <div class="header__info">
       <div class="header__phone">
-        <a v-if="reactiveWidth > 764" href="tel:88005550675">8 800 555 06 75</a>
-        <template v-else>
-          <v-phone/>
-        </template>
+        <a href="tel:88005550675">
+          <template v-if="reactiveWidth > 764">
+            8 800 555 06 75
+          </template>
+          <template v-else>
+            <v-phone/>
+          </template>
+        </a>
       </div>
       <div class="header__email">
-        <a v-if="reactiveWidth > 764" href="mailto:sales@selectel.ru">sales@selectel.ru</a>
-        <template v-else>
-          <v-email/>
-        </template>
+        <a href="mailto:sales@selectel.ru">
+          <template v-if="reactiveWidth > 764">
+            sales@selectel.ru
+          </template>
+          <template v-else>
+            <v-email/>
+          </template>
+        </a>
       </div>
     </div>
   </header>
@@ -28,7 +36,7 @@ import TopSelectel from '@/assets/top-selectel.svg';
 import VEmail from '@/components/links/VEmail.vue';
 import VPhone from '@/components/links/VPhone.vue';
 
-const header = ref(2);
+const header = ref(null);
 const reactiveWidth = ref(null);
 
 const outputSize = (e) => {
@@ -37,7 +45,7 @@ const outputSize = (e) => {
 
 onMounted(() => {
   const observer = new ResizeObserver(outputSize).observe(header.value);
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -54,12 +62,9 @@ onMounted(() => {
   position: sticky;
   z-index: 2;
   top: 0;
+  height: $header-height;
   background-color: $white-color;
   border: 1px solid #E8E8E8;
-
-  @media (max-width: 768px) {
-
-  }
 
   &__logo {
     margin-left: 138px;

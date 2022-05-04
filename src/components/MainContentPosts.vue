@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-import ARow from "ant-design-vue/es/grid/Row";
-import ACol from "ant-design-vue/es/grid/Col";
 import {onMounted} from "vue";
 import {useUsersInfo} from '@/hooks/useUsersInfo';
 

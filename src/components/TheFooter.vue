@@ -83,7 +83,7 @@ import VHabr from '@/components/links/VHabr.vue';
   grid-template-rows: repeat(2, minmax(min-content, 140px));
   grid-template-columns: minmax(300px, 592px) minmax(max-content, 180px);
   grid-gap: 1em;
-  background-color: #092433;
+  background-color: $black-color;
 
   @media screen and (max-width: 1024px) {
     grid-template-areas:
