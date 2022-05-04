@@ -21,7 +21,7 @@
                         color: '#595959',
                         fontSize: '12px'
                       }"
-                :count="post.date"
+                :count="transformDate(post.date)"
             />
           </div>
         </a-card>
@@ -31,12 +31,11 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
-import {useUsersInfo} from '@/hooks/useUsersInfo';
+import {transformDate} from "@/utils/transformDate";
 
-const {users, loadUsers} = useUsersInfo();
-
-onMounted(() => Promise.all([loadUsers()]));
+const props = defineProps({
+  users: Map
+})
 
 </script>
 

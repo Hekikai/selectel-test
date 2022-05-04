@@ -1,13 +1,14 @@
 <template>
   <div class="section">
     <a-select
+        v-model:value="selectRef"
         class="section__multiselect"
         mode="multiple"
         placeholder="Выберите автора"
         size="large"
         suffix-icon=""
-        clear-icon
-        :options="[...Array(25)].map((_, i) => ({ value: (i + 10).toString(36) + (i + 1) }))"
+        :options="props.options"
+        @change="handeChange"
     >
       <template #suffixIcon>
         <user-outlined/>
@@ -16,7 +17,6 @@
     <a-range-picker
         class="section__date-filter"
         size="large"
-        v-model:value="value2"
         show-time
         separator="~"
         suffix-icon=""
@@ -28,9 +28,20 @@
 
 <script setup>
 import {UserOutlined} from '@ant-design/icons';
-import {ref} from "vue";
+import {ref, toRef, watchEffect} from "vue";
 
-const value2 = ref(2);
+const selectRef = ref([]);
+
+const props = defineProps({
+  users: Map,
+  options: Array
+})
+
+const emit = defineEmits(['selectUser'])
+
+const handeChange = (nameUsersArray) => {
+  emit('selectUser', nameUsersArray);
+}
 
 </script>
 
@@ -56,7 +67,7 @@ const value2 = ref(2);
   }
 
   &__multiselect {
-   @include filter;
+    @include filter;
   }
 
   &__date-filter {
