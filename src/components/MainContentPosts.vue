@@ -1,7 +1,7 @@
 <template>
   <section class="section">
-    <template v-for="[user, posts] in users.entries()">
-      <div v-for="post in posts" class="section__col">
+    <template v-for="user in searchedUsers">
+      <div v-for="post in user.posts" class="section__col">
         <a-card
             class="section__card"
             :title="post.title"
@@ -13,7 +13,7 @@
                         backgroundColor: '#092433',
                         fontSize: '12px'
                       }"
-                :count="user.name"
+                :count="user.user.name"
             />
             <a-badge
                 :number-style="{
@@ -32,10 +32,11 @@
 
 <script setup>
 import {transformDate} from "@/utils/transformDate";
+import {useStore} from "vuex";
 
-const props = defineProps({
-  users: Map
-})
+const store = useStore();
+const searchNames = store.state.usersModule.searchNames;
+const searchedUsers = store.getters.searchedUsers(searchNames);
 
 </script>
 

@@ -1,14 +1,15 @@
 <template>
   <div class="section">
     <a-select
-        v-model:value="selectRef"
+        v-model:value="names"
         class="section__multiselect"
         mode="multiple"
         placeholder="Выберите автора"
         size="large"
         suffix-icon=""
-        :options="props.options"
-        @change="handeChange"
+        :options="options"
+        @deselect="handeDeselect"
+        @select="handleSelect"
     >
       <template #suffixIcon>
         <user-outlined/>
@@ -28,21 +29,22 @@
 
 <script setup>
 import {UserOutlined} from '@ant-design/icons';
-import {ref, toRef, watchEffect} from "vue";
+import {ref, toRef, toRefs} from "vue";
+import {useStore} from "vuex";
 
-const selectRef = ref([]);
+const store = useStore();
+const usersModule = store.state.usersModule;
 
-const props = defineProps({
-  users: Map,
-  options: Array
-})
+const options = usersModule.options;
+const names = usersModule.searchNames;
 
-const emit = defineEmits(['selectUser'])
-
-const handeChange = (nameUsersArray) => {
-  emit('selectUser', nameUsersArray);
+const handleSelect = (userName) =>{
+  store.dispatch('addSearchName', userName);
 }
 
+const handeDeselect = (userName) => {
+  store.dispatch('deleteSearchName', userName);
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,29 +1,22 @@
 <template>
   <main class="container">
-    <main-content-filters @selectUser="handleSelectUser" :users="users" :options="options"/>
-    <main-content-posts :users="users"/>
+    <main-content-filters/>
+    <main-content-posts />
   </main>
 </template>
 
 <script setup>
 import MainContentFilters from '@/components/MainContentFilters';
 import MainContentPosts from '@/components/MainContentPosts';
-import {useUsersInfo} from "@/hooks/useUsersInfo";
-import {onMounted, ref, toRaw, toRefs, watch} from "vue";
+import {useStore} from 'vuex';
+import {onMounted} from "vue";
 
-const {users, loadUsers, areUsersLoaded, options} = useUsersInfo();
-
-const handleSelectUser = (selectedUsers) => {
-  users.value = users.value.filter((usr) => {
-    if (selectedUsers.some((userName) => userName === usr.user.name)) return usr;
-    return false
-  })
-}
-
+const store = useStore();
 
 onMounted(() => {
-  Promise.all([loadUsers()]);
-})
+  store.dispatch('loadUsers');
+});
+
 </script>
 
 <style scoped lang="scss">

@@ -1,9 +1,8 @@
 import {ref, reactive} from "vue";
-import UsersService from "@/services/models/users.service";
+import usersService from "@/services/models/users.service";
 
 export const useUsersInfo = () => {
     const usersAndTheirPosts = ref(new Map());
-    const usersService = new UsersService();
     const options = ref([]);
 
     const loadUsers = () => {

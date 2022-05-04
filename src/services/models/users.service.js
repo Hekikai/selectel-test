@@ -16,4 +16,4 @@ class UsersService extends BasicService {
     }
 }
 
-export default UsersService;
+export default new UsersService();
