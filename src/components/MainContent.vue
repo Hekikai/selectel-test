@@ -3,8 +3,8 @@
     <main-content-filters/>
     <a-alert
         v-if="isContentEmpty"
-        message="Informational Notes"
-        description="Additional description and informations about copywriting."
+        message="Постов за данное время нет"
+        description="Попробуйте ввести другую дату."
         type="info"
         show-icon
     />
