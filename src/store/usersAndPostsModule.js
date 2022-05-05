@@ -24,8 +24,8 @@ export const usersAndPostsModule = {
             state.searchNames.splice(itemIndexToDelete, 1);
         },
 
-        addDateFilter: (state, dateFilter) => {
-            state.dateFilter.push(dateFilter);
+        addDateFilter: (state, {date, index}) => {
+            state.dateFilter[index]= date;
         },
 
         deleteDateFilter: state => state.dateFilter.length = 0,
@@ -63,7 +63,6 @@ export const usersAndPostsModule = {
         }
     },
     getters: {
-
         userPosts: state => user => {
             return state.usersAndPosts.get(user)
         },
@@ -73,7 +72,7 @@ export const usersAndPostsModule = {
                 return getters.searchedUsersByNames;
             }
 
-            if(state.dateFilter.length === 1) {
+            if (state.dateFilter.length === 1) {
                 const rhs = new Date(state.dateFilter[0].$d).getTime();
                 const newMap = new Map();
 
@@ -84,12 +83,12 @@ export const usersAndPostsModule = {
                             ? post
                             : false;
                     });
-                    newMap.set(user,userPosts);
+                    newMap.set(user, userPosts);
                 })
                 return newMap;
             }
 
-            if(state.dateFilter.length === 2) {
+            if (state.dateFilter.length === 2) {
                 const rhs = new Date(state.dateFilter[0].$d).getTime();
                 const lhs = new Date(state.dateFilter[1].$d).getTime();
                 const newMap = new Map();
@@ -101,7 +100,7 @@ export const usersAndPostsModule = {
                             ? post
                             : false;
                     });
-                    newMap.set(user,userPosts);
+                    newMap.set(user, userPosts);
                 })
                 return newMap;
             }
@@ -115,7 +114,7 @@ export const usersAndPostsModule = {
             const usersToReturn = new Map();
             state.searchNames.forEach((name) => {
                 state.usersAndPosts.forEach((posts, user) => {
-                    if(user.name === name) {
+                    if (user.name === name) {
                         usersToReturn.set(user, posts)
                     }
                 })
