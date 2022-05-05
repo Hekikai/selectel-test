@@ -16,11 +16,13 @@
       </template>
     </a-select>
     <a-range-picker
+        v-model:value="dates"
         class="section__date-filter"
+        :placeholder="['От', 'До']"
         size="large"
-        show-time
         separator="~"
         suffix-icon=""
+        @calendarChange="handleChange"
     >
     </a-range-picker>
   </div>
@@ -37,6 +39,19 @@ const usersModule = store.state.usersModule;
 
 const options = usersModule.options;
 const names = usersModule.searchNames;
+const dates = usersModule.dateFilter;
+
+const handleChange = (datesArray) => {
+  if(datesArray == null) {
+    store.dispatch('deleteDateFilter');
+    return;
+  }
+  datesArray.forEach((date) => {
+    if(!date || dates.includes(date)) return false;
+    store.dispatch('addDateFilter', date);
+    store.dispatch('logTime');
+  })
+}
 
 const handleSelect = (userName) =>{
   store.dispatch('addSearchName', userName);

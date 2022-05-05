@@ -33,10 +33,12 @@
 <script setup>
 import {transformDate} from "@/utils/transformDate";
 import {useStore} from "vuex";
+import {computed, onMounted} from "vue";
 
 const store = useStore();
-const searchNames = store.state.usersModule.searchNames;
-const searchedUsers = store.getters.searchedUsers(searchNames);
+const searchedUsers = computed(() => store.getters.searchedUsers)
+// const searchedUsersByDate = computed(() => store.getters.searchedUsersByDate);
+// onMounted(() => console.log(searchedUsersByDate));
 
 </script>
 
