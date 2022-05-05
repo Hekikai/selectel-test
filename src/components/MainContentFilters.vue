@@ -6,13 +6,16 @@
         mode="multiple"
         placeholder="Выберите автора"
         size="large"
-        suffix-icon=""
         :options="options"
         @deselect="handeDeselect"
         @select="handleSelect"
     >
       <template #suffixIcon>
-        <user-outlined/>
+        <icon>
+          <template #component>
+            <author-filter/>
+          </template>
+        </icon>
       </template>
     </a-select>
     <a-range-picker
@@ -30,9 +33,9 @@
 </template>
 
 <script setup>
-import {UserOutlined} from '@ant-design/icons';
-import {ref, toRef, toRefs} from "vue";
 import {useStore} from "vuex";
+import AuthorFilter from '@/assets/author-filter.svg';
+import Icon from "@ant-design/icons-vue";
 
 const store = useStore();
 const usersModule = store.state.usersModule;
@@ -42,13 +45,13 @@ const names = usersModule.searchNames;
 const dates = usersModule.dateFilter;
 
 const handleChange = (datesArray) => {
-  if(datesArray == null) {
+  if (datesArray == null) {
     store.dispatch('deleteDateFilter');
     return;
   }
-  datesArray.forEach((date) => {
-    if(!date || dates.includes(date)) return false;
-    store.dispatch('addDateFilter', date);
+  datesArray.forEach((date, index) => {
+    if (!date) return false;
+    store.dispatch('addDateFilter', {date, index});
   })
 }
 

@@ -33,7 +33,7 @@
 <script setup>
 import {transformDate} from "@/utils/transformDate";
 import {useStore} from "vuex";
-import {computed, onMounted} from "vue";
+import {computed} from "vue";
 
 const store = useStore();
 const searchedUsers = computed(() => store.getters.searchedUsers)

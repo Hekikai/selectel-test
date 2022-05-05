@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import {computed, onMounted, onUpdated, ref, watch, watchEffect} from "vue";
+import { onMounted, ref} from "vue";
 import TopSelectel from '@/assets/top-selectel.svg';
 import VEmail from '@/components/links/VEmail.vue';
 import VPhone from '@/components/links/VPhone.vue';

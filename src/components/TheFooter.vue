@@ -66,7 +66,6 @@ import VTelegram from '@/components/links/VTelegram.vue';
 import VVk from '@/components/links/VVk.vue';
 import VTwitter from '@/components/links/VTwitter.vue';
 import VHabr from '@/components/links/VHabr.vue';
-
 </script>
 
 <style scoped lang="scss">

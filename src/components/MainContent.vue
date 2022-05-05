@@ -2,6 +2,7 @@
   <main class="container">
     <main-content-filters/>
     <a-alert
+        v-if="isContentEmpty"
         message="Informational Notes"
         description="Additional description and informations about copywriting."
         type="info"
@@ -15,14 +16,24 @@
 import MainContentFilters from '@/components/MainContentFilters';
 import MainContentPosts from '@/components/MainContentPosts';
 import {useStore} from 'vuex';
-import {onMounted} from "vue";
+import {onMounted, computed} from "vue";
 
 const store = useStore();
+const searchedUsers = computed(() => store.getters.searchedUsers);
+const isContentEmpty = computed(() => {
+  let isEmpty = false;
+  for(const values of searchedUsers.value.values()) {
+    if(values.length === 0) {
+      isEmpty = true;
+      break;
+    }
+  }
+  return isEmpty;
+})
 
 onMounted(() => {
   store.dispatch('loadUsers');
 });
-
 </script>
 
 <style scoped lang="scss">
