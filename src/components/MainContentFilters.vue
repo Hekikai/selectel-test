@@ -49,17 +49,12 @@ const handleChange = (datesArray) => {
   datesArray.forEach((date) => {
     if(!date || dates.includes(date)) return false;
     store.dispatch('addDateFilter', date);
-    store.dispatch('logTime');
   })
 }
 
-const handleSelect = (userName) =>{
-  store.dispatch('addSearchName', userName);
-}
+const handleSelect = (userName) => store.dispatch('addSearchName', userName);
 
-const handeDeselect = (userName) => {
-  store.dispatch('deleteSearchName', userName);
-}
+const handeDeselect = (userName) => store.dispatch('deleteSearchName', userName);
 </script>
 
 <style scoped lang="scss">

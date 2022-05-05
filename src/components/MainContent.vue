@@ -1,7 +1,13 @@
 <template>
   <main class="container">
     <main-content-filters/>
-    <main-content-posts />
+    <a-alert
+        message="Informational Notes"
+        description="Additional description and informations about copywriting."
+        type="info"
+        show-icon
+    />
+    <main-content-posts/>
   </main>
 </template>
 

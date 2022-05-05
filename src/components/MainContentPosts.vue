@@ -1,7 +1,7 @@
 <template>
   <section class="section">
-    <template v-for="user in searchedUsers">
-      <div v-for="post in user.posts" class="section__col">
+    <template v-for="[user,posts] in searchedUsers.entries()">
+      <div v-for="post in posts" class="section__col">
         <a-card
             class="section__card"
             :title="post.title"
@@ -13,7 +13,7 @@
                         backgroundColor: '#092433',
                         fontSize: '12px'
                       }"
-                :count="user.user.name"
+                :count="user.name"
             />
             <a-badge
                 :number-style="{
@@ -37,9 +37,6 @@ import {computed, onMounted} from "vue";
 
 const store = useStore();
 const searchedUsers = computed(() => store.getters.searchedUsers)
-// const searchedUsersByDate = computed(() => store.getters.searchedUsersByDate);
-// onMounted(() => console.log(searchedUsersByDate));
-
 </script>
 
 <style scoped lang="scss">

@@ -3,7 +3,7 @@ import usersService from "@/services/models/users.service";
 export const usersAndPostsModule = {
     state: () => {
         return {
-            usersAndTheirPosts: [],
+            usersAndPosts: new Map(),
             options: [],
             searchNames: [],
             dateFilter: [],
@@ -12,19 +12,22 @@ export const usersAndPostsModule = {
 
     mutations: {
         setOptions: (state, option) => state.options.push(option),
-        setUsersAndTheirPosts: (state, userAndPosts) => (
-            state.usersAndTheirPosts.push(userAndPosts)
-        ),
+
+        setUsersAndPosts: (state, {user, posts}) => state.usersAndPosts.set(user, posts),
+
         setSearchName: (state, searchName) => {
             state.searchNames.push(searchName)
         },
+
         deleteSearchName: (state, searchName) => {
             const itemIndexToDelete = state.searchNames.findIndex((elem) => elem === searchName);
             state.searchNames.splice(itemIndexToDelete, 1);
         },
+
         addDateFilter: (state, dateFilter) => {
             state.dateFilter.push(dateFilter);
         },
+
         deleteDateFilter: state => state.dateFilter.length = 0,
     },
 
@@ -35,37 +38,34 @@ export const usersAndPostsModule = {
                     commit('setOptions', {
                         value: user.name
                     });
-                    commit('setUsersAndTheirPosts', {
+                    commit('setUsersAndPosts', {
                         user,
                         posts: await usersService.getPostsByUser(user.id)
                     })
                 })
             })
         },
+
         addSearchName({commit}, searchName) {
             commit('setSearchName', searchName)
         },
+
         deleteSearchName({commit}, searchName) {
             commit('deleteSearchName', searchName)
         },
+
         addDateFilter({commit}, dateFilter) {
             commit('addDateFilter', dateFilter);
         },
+
         deleteDateFilter({commit}) {
             commit('deleteDateFilter');
-        },
-        logTime(context) {
-            // toRaw(context.state.dateFilter).forEach((date) => {
-            //     console.log(date.$d);
-            // })
-            // const time = new Date(toRaw(context.state.dateFilter)[0].$d).getTime();
-            // console.log(time);
         }
     },
     getters: {
 
-        userPosts: (state) => (id) => {
-
+        userPosts: state => user => {
+            return state.usersAndPosts.get(user)
         },
 
         searchedUsers: (state, getters) => {
@@ -75,33 +75,52 @@ export const usersAndPostsModule = {
 
             if(state.dateFilter.length === 1) {
                 const rhs = new Date(state.dateFilter[0].$d).getTime();
-                return getters.searchedUsersByNames.filter((usr) => {
-                    console.log(usr);
-                    // usr.posts = usr.posts.filter((post) => {
-                    //     if(new Date(post.date).getTime() >= rhs) {
-                    //         return post;
-                    //     }
-                    //     return false;
-                    // })
-                    return usr;
-                })
-            }
-            return getters.searchedUsersByNames.filter(() => {
+                const newMap = new Map();
 
-            })
+                getters.searchedUsersByNames.forEach((posts, user) => {
+                    const userPosts = getters.userPosts(user).filter((post) => {
+                        const postDate = new Date(post.date).getTime();
+                        return postDate >= rhs
+                            ? post
+                            : false;
+                    });
+                    newMap.set(user,userPosts);
+                })
+                return newMap;
+            }
+
+            if(state.dateFilter.length === 2) {
+                const rhs = new Date(state.dateFilter[0].$d).getTime();
+                const lhs = new Date(state.dateFilter[1].$d).getTime();
+                const newMap = new Map();
+
+                getters.searchedUsersByNames.forEach((posts, user) => {
+                    const userPosts = getters.userPosts(user).filter((post) => {
+                        const postDate = new Date(post.date).getTime();
+                        return (postDate >= rhs && postDate <= lhs)
+                            ? post
+                            : false;
+                    });
+                    newMap.set(user,userPosts);
+                })
+                return newMap;
+            }
         },
 
         searchedUsersByNames: state => {
             if (state.searchNames.length === 0) {
-                return state.usersAndTheirPosts;
+                return state.usersAndPosts;
             }
-            return state.usersAndTheirPosts.filter((usr) => {
-                if (state.searchNames.some((name) => name === usr.user.name)) return usr;
-                return false;
+
+            const usersToReturn = new Map();
+            state.searchNames.forEach((name) => {
+                state.usersAndPosts.forEach((posts, user) => {
+                    if(user.name === name) {
+                        usersToReturn.set(user, posts)
+                    }
+                })
             })
+            return usersToReturn;
         },
-        // searchedUsersByDate: (state, getters) => {
-        //     console.log(getters);
-        // }
     }
 }
