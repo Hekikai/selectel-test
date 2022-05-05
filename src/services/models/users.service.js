@@ -4,20 +4,16 @@ import {generateDateFromSpecifiedTime} from "@/utils/generateDateFromSpecifiedTi
 class UsersService extends BasicService {
     PATH = 'https://jsonplaceholder.typicode.com/users';
 
-    getPostsByUser(userId, user) {
+    getPostsByUser(userId) {
         return fetch(`${this.PATH}/${userId}/posts`)
             .then(res => res.json())
             .then(res => {
-                if (!user.posts) {
-                    user.posts = [];
-                }
                 res.forEach((post) => {
                     post.date = generateDateFromSpecifiedTime(new Date(2008, 8, 8), new Date());
-                    user.posts.push(post);
                 })
-                return user.posts;
+                return res;
             })
     }
 }
 
-export default UsersService;
+export default new UsersService();

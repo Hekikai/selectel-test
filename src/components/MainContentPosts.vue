@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <template v-for="[user, posts] in users.entries()">
+    <template v-for="[user,posts] in searchedUsers.entries()">
       <div v-for="post in posts" class="section__col">
         <a-card
             class="section__card"
@@ -21,7 +21,7 @@
                         color: '#595959',
                         fontSize: '12px'
                       }"
-                :count="post.date"
+                :count="transformDate(post.date)"
             />
           </div>
         </a-card>
@@ -31,15 +31,12 @@
 </template>
 
 <script setup>
-import ARow from "ant-design-vue/es/grid/Row";
-import ACol from "ant-design-vue/es/grid/Col";
-import {onMounted} from "vue";
-import {useUsersInfo} from '@/hooks/useUsersInfo';
+import {transformDate} from "@/utils/transformDate";
+import {useStore} from "vuex";
+import {computed, onMounted} from "vue";
 
-const {users, loadUsers} = useUsersInfo();
-
-onMounted(() => Promise.all([loadUsers()]));
-
+const store = useStore();
+const searchedUsers = computed(() => store.getters.searchedUsers)
 </script>
 
 <style scoped lang="scss">

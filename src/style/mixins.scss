@@ -1,0 +1,41 @@
+@import './variables';
+
+@mixin color-a($color) {
+  a {
+    text-decoration: none;
+    color: $color;
+
+    &:hover {
+      text-decoration: none;
+      color: $red-color;
+    }
+  }
+}
+
+@mixin color-svg($color) {
+  svg {
+    path {
+      fill: $color;
+    }
+    &:hover path {
+      fill: $red-color;
+    }
+  }
+}
+
+@mixin footer-col {
+  margin-top: 80px;
+  display: flex;
+  align-items: flex-end;
+
+  @media screen and (max-width: 1096px) {
+    margin: 0 0 0 18px;
+  }
+}
+
+@mixin filter {
+  width: 331px;
+  @media screen and (max-width: 976px) {
+    width: 100%;
+  }
+}

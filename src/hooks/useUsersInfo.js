@@ -1,19 +1,22 @@
-import {reactive} from "vue";
-import UsersService from "@/services/models/users.service";
+import {ref, reactive} from "vue";
+import usersService from "@/services/models/users.service";
 
 export const useUsersInfo = () => {
-    const users = reactive(new Map());
-    const usersService = new UsersService();
+    const usersAndTheirPosts = ref(new Map());
+    const options = ref([]);
 
     const loadUsers = () => {
         return usersService.getInfo().then(res => {
             res.forEach(async (user) => {
-                users.set(user, await usersService.getPostsByUser(user.id, user));
+                options.value.push({
+                    value: user.name
+                })
+                usersAndTheirPosts.value.set(user, await usersService.getPostsByUser(user.id));
             })
         })
     }
 
     return {
-        users, loadUsers
+        users: usersAndTheirPosts, loadUsers, options
     }
 }
