@@ -21,9 +21,12 @@ import {onMounted, computed} from "vue";
 const store = useStore();
 const searchedUsers = computed(() => store.getters.searchedUsers);
 const isContentEmpty = computed(() => {
-  let isEmpty = false;
+  let isEmpty = true;
   for (const values of searchedUsers.value.values()) {
-    isEmpty = values.every((el) => console.log(el))
+    if(values.length > 0) {
+      isEmpty = false;
+      break;
+    }
   }
   return isEmpty;
 })
