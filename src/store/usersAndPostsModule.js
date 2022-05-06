@@ -1,4 +1,5 @@
 import usersService from "@/services/models/users.service";
+import {getTimestamp} from "@/utils/getTimestamp";
 
 export const usersAndPostsModule = {
     state: () => {
@@ -25,7 +26,7 @@ export const usersAndPostsModule = {
         },
 
         addDateFilter: (state, {date, index}) => {
-            state.dateFilter[index]= date;
+            state.dateFilter[index] = date;
         },
 
         deleteDateFilter: state => state.dateFilter.length = 0,
@@ -54,8 +55,8 @@ export const usersAndPostsModule = {
             commit('deleteSearchName', searchName)
         },
 
-        addDateFilter({commit}, dateFilter) {
-            commit('addDateFilter', dateFilter);
+        addDateFilter({commit}, dateObj) {
+            commit('addDateFilter', dateObj);
         },
 
         deleteDateFilter({commit}) {
@@ -72,13 +73,13 @@ export const usersAndPostsModule = {
                 return getters.searchedUsersByNames;
             }
 
-            if (state.dateFilter.length === 1) {
-                const rhs = new Date(state.dateFilter[0].$d).getTime();
+            if (state.dateFilter[1] === undefined) {
                 const newMap = new Map();
+                const rhs = getTimestamp(state.dateFilter[0].$d);
 
                 getters.searchedUsersByNames.forEach((posts, user) => {
                     const userPosts = getters.userPosts(user).filter((post) => {
-                        const postDate = new Date(post.date).getTime();
+                        const postDate = getTimestamp(post.date);
                         return postDate >= rhs
                             ? post
                             : false;
@@ -86,16 +87,27 @@ export const usersAndPostsModule = {
                     newMap.set(user, userPosts);
                 })
                 return newMap;
-            }
-
-            if (state.dateFilter.length === 2) {
-                const rhs = new Date(state.dateFilter[0].$d).getTime();
-                const lhs = new Date(state.dateFilter[1].$d).getTime();
+            } else if (state.dateFilter[0] === undefined) {
                 const newMap = new Map();
+                const lhs = getTimestamp(state.dateFilter[1].$d);
 
                 getters.searchedUsersByNames.forEach((posts, user) => {
                     const userPosts = getters.userPosts(user).filter((post) => {
-                        const postDate = new Date(post.date).getTime();
+                        const postDate = getTimestamp(post.date);
+                        return postDate <= lhs
+                            ? post
+                            : false;
+                    });
+                    newMap.set(user, userPosts);
+                })
+                return newMap;
+            } else {
+                const newMap = new Map();
+                const [rhs, lhs] = state.dateFilter.map((el) => getTimestamp(el.$d));
+
+                getters.searchedUsersByNames.forEach((posts, user) => {
+                    const userPosts = getters.userPosts(user).filter((post) => {
+                        const postDate = getTimestamp(post.date);
                         return (postDate >= rhs && postDate <= lhs)
                             ? post
                             : false;

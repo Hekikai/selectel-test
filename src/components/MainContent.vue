@@ -22,11 +22,8 @@ const store = useStore();
 const searchedUsers = computed(() => store.getters.searchedUsers);
 const isContentEmpty = computed(() => {
   let isEmpty = false;
-  for(const values of searchedUsers.value.values()) {
-    if(values.length === 0) {
-      isEmpty = true;
-      break;
-    }
+  for (const values of searchedUsers.value.values()) {
+    isEmpty = values.every((el) => console.log(el))
   }
   return isEmpty;
 })
